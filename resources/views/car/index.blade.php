@@ -48,8 +48,8 @@
                 @foreach ($cars as $car)
                     <tr>
                         <th scope="row">{{ $no++ }}</th>
-                        <td>{{ $car->name }}</td>
                         <td>{{ $car->company?->name }}</td>
+                        <td>{{ $car->name }}</td>
                         <td>{{ $car->license_plate }}</td>
                         <td>{{ $car->model }}</td>
                         <td>{{ $car->color }}</td>

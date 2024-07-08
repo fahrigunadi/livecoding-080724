@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\Company;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 
 class CarController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         Paginator::useBootstrapFive();
 
@@ -26,14 +28,14 @@ class CarController extends Controller
         return view('car.index', ['cars' => $cars]);
     }
 
-    public function create()
+    public function create(): View
     {
         $companies = Company::all();
 
         return view('car.create', ['companies' => $companies]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'required|max:255',
@@ -56,14 +58,14 @@ class CarController extends Controller
         return to_route('cars.index')->with('success', $request->name . ' created successfully');
     }
 
-    public function edit(Car $car)
+    public function edit(Car $car): View
     {
         $companies = Company::all();
 
         return view('car.edit', ['car' => $car, 'companies' => $companies]);
     }
 
-    public function update(Request $request, Car $car)
+    public function update(Request $request, Car $car): RedirectResponse
     {
         $request->validate([
             'name' => 'required|max:255',
@@ -86,7 +88,7 @@ class CarController extends Controller
         return to_route('cars.index')->with('success', $request->name . ' updated successfully');
     }
 
-    public function destroy(Car $car)
+    public function destroy(Car $car): RedirectResponse
     {
         $car->delete();
 
