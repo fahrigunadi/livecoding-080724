@@ -1,21 +1,14 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <title>CRUD</title>
-  </head>
-  <body>
-    <h1 class="text-center">CRUD</h1>
-
-    <div class="container">
+<x-layouts.app>
+    <span class="hai-guys"></span>
+    <x-layouts.sidebar />
         <div class="d-flex justify-content-between">
-            <a href="{{ route('cars.create') }}" type="button" class="btn btn-primary">Create</a>
+            @can('admin')
+                <a href="{{ route('cars.create') }}" type="button" class="btn btn-primary">Create</a>
+            @endcan
+            <form onsubmit="return confirm('Are you sure logout?')" action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
             <form method="GET" action="" class="d-flex">
                 <input value="{{ request()->search }}" name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
@@ -70,9 +63,4 @@
             </tbody>
           </table>
           {{ $cars->links() }}
-    </div>
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  </body>
-</html>
+</x-layouts.app>
